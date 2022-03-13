@@ -29,7 +29,7 @@ class ListCoinsAPIView(APIView):
     def get(self, request, format=None):
         coin_api_instance = CoinAPI()
         data = coin_api_instance.get_all_coins()
-        return Response(data)
+        return Response(data[:20])
 
 
 class AddFavoriteCoinsAPIView(APIView):
