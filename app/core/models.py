@@ -33,10 +33,25 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username."""
 
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
+    def __str__(self):
+        return f'{self.username}'
+
+
+class FavouriteCoin(models.Model):
+    user = models.ForeignKey(User, related_name='favourite_coins', on_delete=models.CASCADE)
+    coin_name = models.CharField(max_length=20)
+
+    class Meta:
+        unique_together = ('user', 'coin_name', )
+
+    def __str__(self):
+        return f'{self.coin_name}'
