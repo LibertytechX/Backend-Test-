@@ -15,7 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # CREATE NEW USER VIA API
+    path('register/', views.CreateUser.as_view()),
+
+    # GET ALL COINS
+    path('getcoins/', views.GetCoins.as_view()),
+
+    # ADD FAVOURITES VIA API
+    path('addfavourite/', views.AddFavourite.as_view()),
+
+    # VIEW FAVOURITES FOR SPECIFIC USER
+    path('viewfavourites/', views.ViewFavourites.as_view()),
+
+    # CREATE COINS VIA API (MANAGEMENT COMMANDS) TO SEED DATABASE
+    path('loaddb/', views.LoadDB.as_view()),
+
 ]
