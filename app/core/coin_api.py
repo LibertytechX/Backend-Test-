@@ -36,3 +36,14 @@ class CoinAPI():
         url = self.base_url + filter_str
         response = requests.get(url, headers=self.headers).json()
         return self.clean_data(response)
+
+    
+    def check_if_coin_exists(self, coin_name):
+        # Get if coin_name exists
+
+        filter_str = f'/{coin_name}'
+        url = self.base_url + filter_str
+        response = requests.get(url, headers=self.headers).json()
+        if len(response) == 0:
+            return False 
+        return True

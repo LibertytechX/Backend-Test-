@@ -1,7 +1,7 @@
 """Manage admin page for main app."""
 
 from django.contrib import admin
-from .models import User, FavouriteCoin
+from .models import User
 
 class UserAdmin(admin.ModelAdmin):
     ordering = ['id']

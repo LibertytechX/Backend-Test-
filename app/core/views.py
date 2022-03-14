@@ -1,5 +1,4 @@
-from os import stat
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -7,6 +6,9 @@ from .models import User, FavouriteCoin
 from .serializers import FavoriteCoinSerializer, UserSerializer
 from .coin_api import CoinAPI
 
+
+def index(request):
+    return render(request, 'core/index.html')
 
 class RegisterUserView(APIView):
     def post(self, request):
@@ -43,8 +45,14 @@ class AddFavoriteCoinsAPIView(APIView):
         username = serializer.validated_data['username']
         coin_name = serializer.validated_data['coin_name']
 
+        # Check if coin exists
+        coin_instance = CoinAPI()
+        coin_exists = coin_instance.check_if_coin_exists(coin_name)
+
         if not User.objects.filter(username=username).exists():
             return Response({'message': "user does not exist"}, status=status.HTTP_404_NOT_FOUND)
+        elif coin_exists == False:
+            return Response({'message': "the coin you are trying to add does not exist"}, status=status.HTTP_404_NOT_FOUND)
 
         if FavouriteCoin.objects.filter(user__username=username, coin_name=coin_name).exists():
             return Response({'message':"Coin already added to your favourites"}, status=status.HTTP_400_BAD_REQUEST)
