@@ -12,8 +12,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
-# import dj_database_url
-# from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,9 +25,9 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = 'django-insecure-h-h69cr05lmc*w4vtkf+5qltg8#&#xf8fe(v9j9oxs-*-^#vjd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['137.184.232.129', '127.0.0.1']
+ALLOWED_HOSTS = ['137.184.232.129']
 
 
 # Application definition
@@ -87,10 +85,6 @@ if DEBUG:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    # DATABASES = {
-    #     'default': "postgres://postgres:postgres@localhost:5432/libtechdb"
-    # }
-
 else:
     DATABASES = {
         'default': {
