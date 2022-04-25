@@ -6,14 +6,6 @@ from rest_framework import status
 import requests
 
 
-@api_view(['GET'])
-def home_view(request):
-    message = {
-        "Message": "Hello New API"
-    }
-    return Response(message, status=status.HTTP_200_OK)
-
-
 @api_view(['GET', 'POST'])
 def register_user(request):
     if request.method == 'POST':
