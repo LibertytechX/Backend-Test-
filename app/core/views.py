@@ -1,6 +1,8 @@
+import imp
 from .models import User
 from .serializers import UserSerializer
 from rest_framework.generics import CreateAPIView, ListAPIView
+from .get_coins import CoinApi
 from rest_framework.response import Response
 from rest_framework.permissions import (
     IsAuthenticated,
@@ -8,6 +10,7 @@ from rest_framework.permissions import (
     AllowAny,
 )
 from rest_framework import status
+import requests
 from .permissions import IsOwnerOrReadOnly, IsOwner
 
 
@@ -34,3 +37,11 @@ class UserListAPIView(ListAPIView):
     queryset = User.objects.all()
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
+
+
+class ListCoinsAPIView(ListAPIView):
+    # List All Coins API View
+    def get(self, request, format=None):
+        coin_api_instance = CoinApi()
+        data = coin_api_instance.get_all_coins()
+        return Response(data[:100])

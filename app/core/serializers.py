@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, Coins
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,3 +21,15 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class CoinsSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(max_length=100, write_only=True)
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True
+    )
+    favourite = serializers.CharField(source='name')
+
+    class Meta:
+        model = Coins
+        fields = ['name', 'usd_price', 'volume']
