@@ -79,9 +79,9 @@ WSGI_APPLICATION = 'app.wsgi.application'
 #     'default': {
 
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'liberty_backend_db',
-#         'USER': 'libery_backend',
-#         'PASSWORD': 'libertypassword',
+#         'NAME': 'backendtest',
+#         'USER': 'postgres',
+#         'PASSWORD': 'ezeka',
 #         'HOST': '127.0.0.1',
 #         'PORT': '5432',
 
