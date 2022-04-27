@@ -1,4 +1,3 @@
-"""Implement seperation of concerns to ensure views.py only handles the views and does not call external apis."""
 
 from django.conf import settings
 import requests
@@ -45,3 +44,5 @@ class CoinApi():
         if len(response) == 0:
             return False
         return True
+
+        # all part of these codes were sampled from joelchooks @github.

@@ -125,3 +125,38 @@ You have been provided with a virtual machine IP address hosted on Digital Ocean
 - Also note that you can ignore the Docker and CI/CD instantiations on the application.
 
 ### Good luck, as we look forward to working with you at Liberty Assured in building amazing projects and relationships.
+
+
+## Task Endpoints.
+
+I have added `drf-yasg` for API documentation which can be accessed after running the backend server and going to following links:
+
+Swagger UI docs:    http://127.0.0.1:8000/swagger/
+Register user:      http://127.0.0.1:8000/register/          **Create new user**
+Get all coins:      http://127.0.0.1:8000/getcoins/          **Return 100 top coins**
+Add favourite:      http://127.0.0.1:8000/addfav/            **Add favorite coin**
+Return user:        http://127.0.0.1:8000/user/              **Return user and added coin**
+
+## API
+<details>
+<summary> User model, Add to favorite, Welcome user </summary> 
+
+- User:
+    - email: email,
+    - username: string,
+    - password: string(min 8 chars)
+
+- Add to favorite:
+    - username: string,
+    - coin_name
+
+
+- Welcome user:
+    - username: string,
+
+
+</details>
+
+
+
+
