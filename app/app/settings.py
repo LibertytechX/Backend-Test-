@@ -74,10 +74,25 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DDATABASES = {
+
+#     'default': {
+
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'liberty_backend_db',
+#         'USER': 'libery_backend',
+#         'PASSWORD': 'libertypassword',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+
+#     }
+
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': 'mydatabase',
     }
 }
 
