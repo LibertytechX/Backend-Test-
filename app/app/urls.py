@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from core.views import CreateUser, ListCoinsAPIView
+from core.views import CreateUser, ListCoinsAPIView, AddFavoriteCoinsAPIView, FavoriteCoinsListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', CreateUser.as_view()),
     path('getcoins/', ListCoinsAPIView.as_view(), name='coin-list'),
+    path('addfav/', AddFavoriteCoinsAPIView.as_view(), name='addcoin'),
+    path('user/', FavoriteCoinsListView.as_view(), name='user')
 ]

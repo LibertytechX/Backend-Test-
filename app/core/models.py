@@ -45,14 +45,15 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.username
 
 
-class Coins(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, unique=True)
+class Coin(models.Model):
+    user = models.ForeignKey(
+        User, related_name='favourite_coin', on_delete=models.CASCADE)
+    coin_name = models.CharField(max_length=200, unique=True)
     usd_price = models.CharField(max_length=200, default=0, null=True)
     volume = models.CharField(max_length=200, default=0, null=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['coin_name']
 
     def __str__(self):
-        return self.name
+        return self.coin_name

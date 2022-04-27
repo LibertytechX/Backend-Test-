@@ -7,7 +7,7 @@ import requests
 class CoinApi():
     def __init__(self):
         self.headers = {
-            'X-CoinAPI-Key': 'D7E30FDE-1B4A-47DD-9496-06E215DB7EEA'}
+            'X-CoinAPI-Key': '2C06A986-71E3-45D5-A0F9-C9005BEAD361'}
         self.base_url = 'https://rest.coinapi.io/v1/assets'
 
     def clean_data(self, coin_list):
@@ -17,7 +17,7 @@ class CoinApi():
             changedKeys = {
                 'asset_id': coin['asset_id'],
                 'name': coin['name'],
-                'USD-PRICE': coin.get('price_usd', None),
+                'USD-PRICE': coin.get('usd_price', None),
                 'volume': coin['volume_1hrs_usd']
             }
             cleaned_data.append(changedKeys)
