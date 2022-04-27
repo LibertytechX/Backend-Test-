@@ -97,3 +97,8 @@ class FavoriteCoinsListView(APIView):
             "subscribed_favourites": result
         }
         return Response(responseData, status=status.HTTP_200_OK)
+
+        """
+        Some part of these codes were sampled from joelchooks @github.
+        
+        """
