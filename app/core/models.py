@@ -1,8 +1,10 @@
 """Create and manage app models and methods."""
 
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
                                         PermissionsMixin
+
 # Create your models here.
 
 
@@ -33,10 +35,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     """Custom user model that supports using email instead of username."""
 
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    favourite_coins = ArrayField(models.CharField(max_length=200), default =list())
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class Coin(models.Model):
+    name = models.CharField(max_length=255, unique = True)
+    USD_PRICE  =  models.CharField(max_length = 255, null = True)
+    volume = models.CharField(max_length = 255, null = True)
+
+
