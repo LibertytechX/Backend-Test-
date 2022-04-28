@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import User, AllCoins
+from .models import User, AllCoins, Favourite
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,3 +17,15 @@ class AllCoinsSerializer(serializers.ModelSerializer):
     class Meta:
         model = AllCoins
         fields = ['name', 'usd_price', 'volume']
+
+
+class FavouritesSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Favourite
+        fields = [
+            "user",
+            "name",
+            "usd_price",
+            "volume"
+        ]

@@ -1,7 +1,7 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import UserSerializer, AllCoinsSerializer
-from .models import AllCoins
+from .serializers import FavouritesSerializer, UserSerializer, AllCoinsSerializer
+from .models import AllCoins, Favourite, User
 from rest_framework import status
 import requests
 
@@ -30,10 +30,11 @@ def register_user(request):
 
 @api_view(['GET'])
 def get_all_coins(request):
+    # Get all coins from coinapi
     url = 'https://rest.coinapi.io/v1/assets'
     headers = {'X-CoinAPI-Key': 'B0853F54-F9C3-4AA3-B1BB-16B909E7CBEF'}
     response = requests.get(url, headers=headers)
-    new_list = []
+    new_list = [] # Create a new list to store the data
     count = 0
     all_coins = AllCoins.objects.all()
     for data in response.json():
@@ -50,3 +51,44 @@ def get_all_coins(request):
             AllCoins.objects.create(name=x['name'], usd_price=x['USD-PRICE'], volume=x['volume'])
     serialized_coins = AllCoinsSerializer(all_coins, many=True)
     return Response(serialized_coins.data, status=status.HTTP_200_OK)
+
+# View all favourites
+@api_view(['GET'])
+def view_favourites(request, name):
+    try:
+        user = User.objects.get(name=name)
+        favourites = Favourite.objects.filter(user=user.id)
+        serialized_favourites = FavouritesSerializer(favourites, many=True)
+        return Response({"message": f"Welcome back {user.name} thanks for using our platform", 
+                        "subscribed_favourites": serialized_favourites.data}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"Error": f"This error ({e}) occured"}) 
+
+# Add favourites
+@api_view(['POST'])
+def add_favourite(request, name):
+    try:
+        user = User.objects.get(name=name)
+        data = request.data
+        data['user'] = user.id
+        filtered_coin = AllCoins.objects.get(name=data.get('name'))
+        
+        if filtered_coin:
+            data['usd_price'] = filtered_coin.usd_price
+            data['volume'] = filtered_coin.volume 
+            serialzed_favourite = FavouritesSerializer(data=data)
+            if serialzed_favourite.is_valid():
+                serialzed_favourite.save()
+                message = {
+                    "message": f"Added {serialzed_favourite.data.get('name')} to your favourites",
+                    "username": f"{name}",
+                    "coin-name": f"{serialzed_favourite.data.get('name')}",
+                    "status-code": 200
+                }
+                return Response (message, status=status.HTTP_200_OK)
+            else:
+                return Response(serialzed_favourite.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({"Error": f"Sorry the coin with name {filtered_coin.name} does not exist"}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({"Error": f"This error ({e}) occured"}) 
