@@ -42,10 +42,10 @@ def get_all_coins(request):
         new_list.append({'pk': count, 'name': data.get('asset_id'), 'USD-PRICE': data.get('price_usd'),
                         'volume': data.get('volume_1mth_usd')})
         count += 1
-        if len(new_list) == 200:
+        if len(new_list) == 2000:
             break
     for x in new_list:
-        if all_coins.count() == 200:
+        if all_coins.count() == 2000:
             break
         else:
             AllCoins.objects.create(name=x['name'], usd_price=x['USD-PRICE'], volume=x['volume'])

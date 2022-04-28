@@ -74,27 +74,27 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DDATABASES = {
+DDATABASES = {
 
-#     'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'backendtest',
-#         'USER': 'postgres',
-#         'PASSWORD': 'ezeka',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-
-#     }
-
-# }
-
-DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Libertybackendtest_db',
+        'USER': 'Libertybackend',
+        'PASSWORD': 'Libertybackend',
+        'HOST': 'localhost',
+        'PORT': '',
+
     }
+
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase',
+#     }
+# }
 
 
 # Password validation
