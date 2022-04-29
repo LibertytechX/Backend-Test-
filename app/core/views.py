@@ -1,11 +1,13 @@
-
+import os
 import json
 from ntpath import join
 import requests
 from rest_framework.response import Response 
 from rest_framework import status
 from rest_framework.decorators import api_view
-from app.settings import COIN_API
+from dotenv import load_dotenv
+load_dotenv()
+COIN_API = os.getenv('COIN_API')
 from core.models import User, FavCoin
 
 @api_view(['POST'])

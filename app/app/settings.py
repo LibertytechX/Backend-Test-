@@ -126,4 +126,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.User'
 
-COIN_API = '24B2F5A5-7113-42AE-801C-5912684E1076' # Todo: move user os.env.get('COIN_API')

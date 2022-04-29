@@ -8,6 +8,7 @@ Django = "<4.0.2,>=3.0"
 djangorestframework = "==3.13.1"
 "coinapi.rest.v1" = "*"
 requests = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
