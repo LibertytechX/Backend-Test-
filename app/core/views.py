@@ -67,9 +67,9 @@ def add_favorite(req) -> Response:
         fav.volume=f"{volume:,}"
         fav.save() 
         res_body = {
-            "message": "Added USDT to Favourite successfully",
-            "username": "way2teiker",
-            "coin-name": "USDT",
+            "message": f"Added {fav.coin_name} to Favourite successfully",
+            "username": user.name,
+            "coin-name": fav.coin_name,
             "status-code": 200
         }
         return Response(res_body,
