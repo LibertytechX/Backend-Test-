@@ -25,7 +25,8 @@ class UserManager(BaseUserManager):
         user = self.create_user(email, password)
         user.is_staff = True
         user.is_superuser = True
-
+        user.is_admin= True
+        user.save(using= self._db)
         return user
 
 
@@ -40,3 +41,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+
+
+class FavCoin(models.Model):
+
+    username = models.CharField(max_length=50)
+    coin_name = models.CharField(max_length=15)
+    usd_price = models.CharField(max_length=30, default="")
+    volume = models.CharField(max_length=30, default="")
