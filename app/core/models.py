@@ -20,13 +20,16 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password, **extra_fields):
         """Create and saves a new super user."""
-        user = self.create_user(email, password)
-        user.is_staff = True
-        user.is_superuser = True
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_staff", True)
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError(("Superuser must have is_staff=True."))
 
-        return user
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError(("Superuser must have is_superuser=True."))
+        return self.create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
