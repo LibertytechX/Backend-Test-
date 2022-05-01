@@ -2,10 +2,10 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-                                        PermissionsMixin
+    PermissionsMixin
+
+
 # Create your models here.
-
-
 class UserManager(BaseUserManager):
     """USER MANAGER CLASS GOING TO MANAGE OUR USER CLASS."""
 
@@ -20,13 +20,16 @@ class UserManager(BaseUserManager):
 
         return user
 
-    def create_superuser(self, email, password):
+    def create_superuser(self, email, password, **extra_fields):
         """Create and saves a new super user."""
-        user = self.create_user(email, password)
-        user.is_staff = True
-        user.is_superuser = True
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_staff", True)
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError(("Superuser must have is_staff=True."))
 
-        return user
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError(("Superuser must have is_superuser=True."))
+        return self.create_user(email, password, **extra_fields)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -36,7 +39,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    username = models.CharField(max_length=25, unique=True)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
