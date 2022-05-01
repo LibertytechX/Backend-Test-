@@ -9,5 +9,5 @@ from django.urls import path
 urlpatterns = [
     path('', CoinAPIView.as_view(), name='coins'),
     path('favourites/', ViewFavouriteAPIView.as_view(), name='view-favourites'),
-    path('favourites/add/', AddFavouriteAPIView.as_view(), name='add-favourites'),
+    path('favourites-add/', AddFavouriteAPIView.as_view(), name='add-favourites'),
 ]

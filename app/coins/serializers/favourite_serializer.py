@@ -1,6 +1,5 @@
 from rest_framework import serializers
 
-from .coin_serializer import CoinSerializer
 from coins.models.favourite_model import FavouriteCoin
 
 

@@ -1,7 +1,6 @@
 from rest_framework.test import APIClient
 from rest_framework import status
 
-from core.models import User
 from coins.models.coin_model import Coin
 from coins.models.favourite_model import FavouriteCoin
 
