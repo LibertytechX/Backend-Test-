@@ -36,6 +36,9 @@ def upload_data_view(request):
     except ValueError:
         return Response(("Rubbish"))
     return Response(coin_details, status=status.HTTP_200_OK)
+
+
+    #aesdfghjnbvjhcgfxdzgbnjvfgf
     
 
 
