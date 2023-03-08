@@ -31,14 +31,22 @@ class RegisterView(GenericAPIView):
 @api_view(['GET'])
 def upload_data_view(request):
     try:
-        url='https://rest.coinapi.io/v1/symbols'
+        url='https://rest.coinapi.io/v1/assets/'
         coin_details = get_coin_data(url)
+        for coin in coin_details:
+            
+            dbcoin={
+                "name":coin['asset_id'],
+                "price":coin.get('price_usd', " "),
+                "volume":coin['volume_1day_usd']
+            }
+            print(dbcoin)
+            Coin.objects.create(name=dbcoin['name'], USD_PRICE=dbcoin['price'], volume=dbcoin['volume'])
     except ValueError:
         return Response(("Rubbish"))
-    return Response(coin_details, status=status.HTTP_200_OK)
+    return Response({"data": coin_details}, status=status.HTTP_200_OK)
 
 
-    #aesdfghjnbvjhcgfxdzgbnjvfgf
     
 
 

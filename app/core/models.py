@@ -46,7 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Coin(models.Model):
     name = models.CharField(max_length=60)
-    USD_PRICE = models.CharField(max_length=64)
+    USD_PRICE = models.CharField(max_length=64, default="20.00")
     volume = models.CharField(max_length=200)
     
     def __str__(self):
