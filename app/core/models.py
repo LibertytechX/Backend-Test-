@@ -40,3 +40,20 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+    REQUIRED_FIELD = ['name']
+
+
+class Coin(models.Model):
+    name = models.CharField(max_length=60)
+    USD_PRICE = models.CharField(max_length=64)
+    volume = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return self.name
+
+class Favourite(models.Model):
+    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    favourite = models.ManyToManyField(Coin)
+
+
