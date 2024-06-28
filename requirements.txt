@@ -1,4 +1,9 @@
 Django>=3.0,<4.0.2
 djangorestframework==3.13.1
+Pillow==9.2.0
+python-dotenv
+psycopg2
+gunicorn
+djangorestframework-simplejwt
 
 # flake8>=3.6.0,<3.7.0
