@@ -1,49 +1,12 @@
 version: "3"
 
 services:
-  web:
+  app:
     build: 
       context: .
     ports:
       - "8000:8000"
-    restart: always
     volumes:
-      - .:/app
-    working_dir: /app/app
+      - ./app:/app
     command: >
-      sh -c "python manage.py migrate && python manage.py collectstatic --noinput && gunicorn app.wsgi:application --bind 0.0.0.0:8000"
-    environment:
-      - DJANGO_SETTINGS_MODULE=app.settings.prod
-      - DATABASE_NAME=store_db
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=admin
-      - DATABASE_HOST=db
-    depends_on:
-      - db
-
-  db:
-    image: postgres:13
-    restart: always
-    environment:
-      POSTGRES_DB: store_db
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: admin
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  nginx:
-    image: nginx:1.23.1
-    restart: always
-    volumes:
-      - ./config/nginx:/etc/nginx/conf.d
-      - .:/app
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - web
-
-volumes:
-  postgres_data:
-  static_volume:
-  media_volume:
+      sh -c "python manage.py runserver 0.0.0.0:8000"
