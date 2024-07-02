@@ -1,91 +1,108 @@
+# Ecommerce Project
 
-# Welcome!
+## Features
 
-Hi! this your determinant test for the position of Django backend developer at **PayBox360**.  If you have any issues, you can read this docs or also contact Lolu for further clarification.
+### 1. User Management
 
+- **User Registration and Login**: Users can register an account and log in using JWT authentication, ensuring secure access to the platform.
 
-##  Overview
+### 2. Product Management
 
-For this exercise you will be cover some basic concepts of web development and production ready deployment  and you will hence be tested in the following basic concepts.
-
-- Django and Django query-sets
-- PostgreSQL Setup and connection to Django
-- Cloud deployment
-- PEP guidelines, conformity and quality of code 
-- General understanding of the python programming language.
-
-## Test Rundown
-
-You will be required to fork this repository into your personal account and then carry out few operations of extending functionality of the application and then make a pull request with your branch name to the main branch as you progress.
-
-## Test Guide
-
-After completing stage the process in in the rundown, please create branch for your self, please make sure to name the the branch with the following convention **\<yourname>/update**, and also all commits to your branch should carry a message in the following format **\<ACTIVITY>[Activity details]**.
-
-- A sample branch name would be **paul/update**, and., 
-- A sample commit message would be **FIX[ADDED CORS CONTROL]**
-
-## Task Description
-
-You are required to extend a skeleton application and build it into an inventory management system to such that it can provide the abilities below:
+- **CRUD Operations for Products**: Allows for creating, reading, updating, and deleting products, providing complete control over the product catalog.
+- **Product Categorization**: Enables organizing products into categories for better navigation and searchability.
+- **Image Upload and Management**: Handles product images, including uploading, updating, and deleting images.
 
 
-**Project: Simple E-commerce API**
+### 3. Category Management
 
-**Requirements:**
-1. **User Management:**
-   - Implement user registration and login with JWT authentication.
-   
-2. **Product Management:**
-   - Create models for Product and Category.
-   - Implement CRUD operations for products (create, read, update, delete).
-
-3. **Order Management:**
-   - Create an Order model.
-   - Allow users to place orders with multiple products.
-   - Implement a basic order history endpoint for users.
-
-**Detailed Instructions:**
-
-1. **Setup:**
-   - Create a new Django project.
-   - Configure the project with Django REST Framework.
-   - Make sure to use PostgreSQL
-
-2. **User Authentication:**
-   - Use Django's built-in User model.
-   - Implement registration and login endpoints using JWT for authentication.
-
-3. **Product and Category Models:**
-   - Create models with appropriate fields (e.g., name, description, price for Product; name for Category).
-   - Establish relationships (e.g., a product belongs to a category).
-   - Implement endpoints for managing products (list, detail, create, update, delete).
-
-4. **Order Model:**
-   - Create an Order model with fields like user (ForeignKey), product (ManyToManyField), quantity, and date.
-   - Implement an endpoint for placing orders.
-   - Create an endpoint to retrieve the order history for the authenticated user.
-
-5. **Testing:**
-   - Write unit tests for each endpoint.
-
-**Evaluation Criteria:**
-- Correctness: The implementation should meet the requirements.
-- Code Quality: Clean, readable, and maintainable code.
-- Use of Django Best Practices: Proper use of Django features and conventions.
-- Testing: Quality and coverage of unit tests.
-
-**Bonus:**
-- Implement search functionality for products.
-- Add pagination to product listing.
+- **Create Category**: Allows for creating new product categories, enabling better organization of the product catalog.
+- **Read Category**: Provides details of a specific category, including its name and associated products.
+- **Update Category**: Allows for updating existing category information, such as changing the category name or description.
+- **Delete Category**: Allows for deleting a category, removing it from the product catalog.
+- **List Categories**: Retrieves a list of all categories, enabling easy navigation and management of product groupings.
 
 
-## Resources for task
+### 4. Order Management
 
-**Finally**
-You will be provided with a virtual machine IP address hosted on Digital Ocean please host your project appropriately using NGINX,  GUNICORN and POSTGRESQL (as database). A password for the droplet will be provided.
+- **Order Placement and Processing**: Users can place new orders and process existing ones, ensuring smooth order transactions.
+- **Order History and Tracking**: Users can view and track the history of their orders..
 
-- Please add your postman link to the above created endpoints for review.
-- Also note that you can ignore the Docker and CI/CD instantiations on the application.
+### 5. Search and Filtering
 
-### Good luck, as we look forward to working with you at Liberty Assured in building amazing projects and relationships.
+- **Full-text Search for Products**: Provides comprehensive search functionality across the product catalog.
+- **Pagination for Product Listings**: Manages pagination to ensure efficient loading and display of product listings.
+
+## Setup and Installation
+
+### Prerequisites
+
+- Python 3.8+
+- PostgreSQL
+- Docker (optional, for containerization)
+
+### Installation Steps
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Nathan-Yinka/Ecommerce-Backend-Test.git
+    cd Ecommerce-Backend-Test
+    ```
+
+2. Create a virtual environment and install dependencies:
+    #### macOS/Linux
+        ```bash
+        python -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        ```
+
+    #### Windows
+        ```bash
+        python -m venv venv
+        venv\Scripts\activate
+        pip install -r requirements.txt
+        ```
+
+3.  ``` bash
+        cd app
+
+    ```
+
+4. Run database migrations:
+    ```bash
+    python manage.py migrate --settings=app.settings.local
+    ```
+
+5. Start the development server:
+    ```bash
+    python manage.py runserver --settings=app.settings.local
+    ```
+
+6. Access the application at `http://localhost:8000`
+
+### Using Docker
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/Nathan-Yinka/Ecommerce-Backend-Test.git
+    cd Ecommerce-Backend-Test
+    ```
+
+2. Ensure Docker is installed and running on your machine.
+
+3. Build and start the containers using Docker Compose:
+    ```bash
+    docker-compose up --build
+    ```
+
+4. Access the application at `http://localhost`
+
+## API Documentation
+
+Detailed API documentation can be found [here](https://documenter.getpostman.com/view/28578777/2sA3dvkChF). It includes endpoints for user authentication, product management, order processing, and more.
+
+## Testing
+
+Unit tests and integration tests are implemented to ensure the application's reliability. Run tests using:
+```bash
+python manage.py test --settings=app.settings.local
