@@ -2,7 +2,9 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-                                        PermissionsMixin
+    PermissionsMixin
+
+
 # Create your models here.
 
 
@@ -40,3 +42,53 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=50)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name_plural = "Product Categories"
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=200, blank=True, null=True)
+    price = models.DecimalField(decimal_places=2, max_digits=20)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
+class OrderDetail(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    total_price = models.DecimalField(decimal_places=2, max_digits=20)
+    created_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.product.name}: Quantity - {self.quantity}"
+
+
+"""
+I added the above model to cater for each product with different quantity on the Order table. 
+Customer may want to order product A - 1 quantity, and product B - 3 quantities
+"""
+
+
+# Create an Order model with fields like user (ForeignKey), product (ManyToManyField), quantity, and date.
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order_detail = models.ManyToManyField(OrderDetail)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.email}: OrderID - {self.id}"
