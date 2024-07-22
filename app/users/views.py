@@ -11,7 +11,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from .serializers import * 
 
-user = get_user_model()
+User = get_user_model()
 
 
 class UserRegistrationView(APIView):
@@ -25,8 +25,7 @@ class UserRegistrationView(APIView):
         if serializers.is_valid():
             serializers.save()
 
-            global user
-            user = user.objects.get(email=serializers.data['email'])
+            user = User.objects.get(email=serializers.data['email'])
             print(user)
 
             token = RefreshToken.for_user(user)
