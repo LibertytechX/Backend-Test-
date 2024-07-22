@@ -11,16 +11,14 @@ class ModelTests(TestCase):
         """Test creating a new user with an email is successful."""
         email = 'test@test.com'
         password = 'testpassword123'
-        user = get_user_model().objects.create_user(
-            email=email,
-            password=password
-        )
+        user = get_user_model().objects.create_user(email=email,
+                                                    password=password)
 
         self.assertEqual(user.email, email)
         self.assertTrue(user.check_password(password))
 
     def test_new_user_email_normalized(self):
-        """Test the email for a new uer is normalized."""
+        """Test the email for a new user is normalized."""
         email = 'test@TEST.com'
         user = get_user_model().objects.create_user(email, 'testpassword123')
 
@@ -34,9 +32,7 @@ class ModelTests(TestCase):
     def test_create_new_superuser(self):
         """Test can create superuser."""
         user = get_user_model().objects.create_superuser(
-            'test@TEST.com',
-            'test123'
-        )
+            'test@TEST.com', 'test123')
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
