@@ -1,5 +1,6 @@
 """Tests for main app are found here."""
 
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -40,3 +41,12 @@ class ModelTests(TestCase):
 
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+
+    def test_tokens(self):
+
+        user = get_user_model().objects.create_user('test@example.com', 'testpassword')
+
+        tokens = user.tokens()
+
+        self.assertIn('refresh', tokens)
+        self.assertIn('access', tokens)

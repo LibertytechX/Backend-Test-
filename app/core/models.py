@@ -1,8 +1,11 @@
 """Create and manage app models and methods."""
 
+from rest_framework_simplejwt.tokens import RefreshToken
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-                                        PermissionsMixin
+    PermissionsMixin
+
+from shop.models import Order
 # Create your models here.
 
 
@@ -40,3 +43,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+    def get_user_order_history(self):
+
+        return Order.objects.filter(
+            user=self).prefetch_related(
+                "products").order_by("created_at", "updated_at")
+
+    def tokens(self):
+        refresh = RefreshToken.for_user(self)
+        return {
+            'refresh': str(refresh),
+            'access': str(refresh.access_token)
+        }
