@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # local apps
     'core',
+    'products',
 
     # 3rd party libraries
     'rest_framework',
