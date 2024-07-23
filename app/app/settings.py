@@ -133,8 +133,18 @@ AUTH_USER_MODEL = 'core.User'
 
 
 # Django Rest Framework settings
-# https://www.django-rest-framework.org/api-guide/exceptions/#custom-exception-handling
+# https://django-rest-framework.org/api-guide/exceptions/#custom-exception-handling
+# https://django-rest-framework.org/api-guide/settings/#default_permission_classes
+# https://django-rest-framework.org/api-guide/settings/#default_authentication_classes
 
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'utils.views.custom_exception_handler'
+    'EXCEPTION_HANDLER': 'utils.views.custom_exception_handler',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication'
+    ],
 }

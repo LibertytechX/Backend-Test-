@@ -22,4 +22,7 @@ handler500 = 'utils.views.handler_500'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include([
+        path('auth/', include('core.urls')),
+    ])),
 ]
