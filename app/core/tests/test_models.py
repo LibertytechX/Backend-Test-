@@ -1,5 +1,5 @@
 """Tests for main app are found here."""
-
+from django.db import connection
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
