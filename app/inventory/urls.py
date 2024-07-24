@@ -11,7 +11,7 @@ router.register(
     "category", CategoryViewSet, basename="category"
 )
 router.register(
-    "order", OrderViewSet, basename="order"
+    "orders", OrderViewSet, basename="orders"
 )
 
 urlpatterns =[
