@@ -112,3 +112,5 @@ class TestViews(TestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         response = self.client.get(url)
         self.assertEqual(response.status_code, HTTP_200_OK )
+    
+    

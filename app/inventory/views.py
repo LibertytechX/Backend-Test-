@@ -67,8 +67,8 @@ class OrderItemViewset(ModelViewSet):
     serializer_class = OrderItemSerializer
     permission_classes = [IsAuthenticated]
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ['name','is_deleted']
-    search_fields = ['name']
+    filterset_fields = ['products']
+    search_fields = ['products']
 
 
 class OrderViewSet(ModelViewSet):
