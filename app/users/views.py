@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from rest_framework.views import APIView
 from rest_framework.generics import CreateAPIView
@@ -26,7 +25,6 @@ class UserRegistrationView(APIView):
             serializers.save()
 
             user = User.objects.get(email=serializers.data['email'])
-            print(user)
 
             token = RefreshToken.for_user(user)
 

@@ -14,9 +14,7 @@ UserModel = get_user_model()
 
 class EmailBackend(ModelBackend):
 
-     def authenticate(self, request, username=None, email=None, password=None, **kwargs):
-        print(email)
-        print(kwargs.get(UserModel.USERNAME_FIELD))
+    def authenticate(self, request, username=None, email=None, password=None, **kwargs):
         if email is None:
             email = kwargs.get(UserModel.USERNAME_FIELD)
 
