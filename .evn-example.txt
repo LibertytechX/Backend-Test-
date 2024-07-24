@@ -1,0 +1,8 @@
+X_API_KEY=R7zoOlmyoHSWZH1NMU9RTzUv5nfSo944YGLHX6SXYlYxzll3rHISEAgbdj3aItmQdwf9Axo2d4BuLevRoKsJaISarl8dYPoA18eojUzgBlobCo3oHu2WkGEFVC2f1uAp
+
+# DATABASE_ENGINE=django.db.backends.postgresql
+# DATABASE_NAME=mydatabasess
+# DATABASE_USER=postgres
+# DATABASE_PASSWORD=postgres
+# DATABASE_HOST=localhost
+# DATABASE_PORT=5432

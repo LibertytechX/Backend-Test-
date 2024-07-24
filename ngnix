@@ -1,0 +1,12 @@
+server {
+    listen 80 127.0.0.1;
+    server_name _;
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /root/Backend-Test-;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/root/Backend-Test-/gunicorn.sock;
+    }
+}

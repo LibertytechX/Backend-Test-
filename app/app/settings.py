@@ -11,9 +11,17 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
+from datetime import timedelta
 
+from corsheaders.defaults import default_headers
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env(os.path.join(".env"))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,10 +45,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core'
+    # Dependencies
+    'rest_framework',
+    'corsheaders',
+    # apps
+    'core',
+    'product',
+    'customer',
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,6 +95,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Database
+# DATABASES = {
+#     "default": {
+#         "ENGINE": env("DATABASE_ENGINE", None),
+#         "OPTIONS": {"options": f"-c search_path={env('DATABASE_SCHEMA', None)}"},
+#         "NAME": env("DATABASE_NAME", None),
+#         "USER": env("DATABASE_USER", None),
+#         "PASSWORD": env("DATABASE_PASSWORD", None),
+#         "HOST": env("DATABASE_HOST", None),
+#         "PORT": env("DATABASE_PORT", None),
+#     }
+# }
 
 
 # Password validation
@@ -122,5 +150,26 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "x-api-key",
+]
 
-AUTH_USER_MODEL = 'core.User'
+
+X_API_KEY = env("X_API_KEY", None)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    # 'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated']
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
+    "UPDATE_LAST_LOGIN": True,
+    "AUTH_HEADER_TYPES": (
+        "Bearer",
+        "Token",
+    ),
+}
