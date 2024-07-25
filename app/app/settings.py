@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # local apps
     'core',
+    'orders',
     'products',
 
     # 3rd party libraries
