@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
+
 import os
+from decouple import config
+
+#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'your_project_name.settings')
+
+
 import sys
 
 
