@@ -22,6 +22,8 @@ class ProductViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['name', 'is_deleted', 'category']
     search_fields = ['name']
+
+    
    
     def destroy(self, request, pk=None, *args, **kwargs):
         product = get_object_or_404(Products.objects.all(),pk=pk)
@@ -48,6 +50,7 @@ class CategoryViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['name','is_deleted']
     search_fields = ['name']
+
 
     def destroy(self, request, pk=None, *args, **kwargs):
         product = get_object_or_404(Category.objects.all(),pk=pk)

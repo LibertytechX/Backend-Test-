@@ -34,5 +34,6 @@ class EmailBackend(ModelBackend):
            
 
         if user.check_password(password):
+            print(user)
             return user
         return None
