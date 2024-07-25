@@ -2,8 +2,13 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-                                        PermissionsMixin
+    PermissionsMixin
 # Create your models here.
+
+User_Roles = (
+    ('CUSTOMER', 'CUSTOMER'),
+    ('STAFF', 'STAFF'),
+)
 
 
 class UserManager(BaseUserManager):
@@ -30,13 +35,24 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    """Custom user model that supports using email instead of username."""
+    """Custom user model that supports using email instead of username. and addition of role for either customer or a staff"""
 
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    role = models.CharField(max_length=10, choices=User_Roles)
+    password = models.CharField(max_length=255)
 
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm: str, obj: None = None) -> bool:
+        return super().has_perm(perm, obj)
+
+    def has_module_perms(self, app_label: str) -> bool:
+        return super().has_module_perms(app_label)
