@@ -2,9 +2,12 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.views import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from utils.mixins import SuccessResponseMixin
+from utils.responses import success_response
 
 from .serializers import UserSerializer
-from utils.responses import success_response
 
 
 class UserRegistrationView(CreateAPIView):
@@ -25,3 +28,7 @@ class UserRegistrationView(CreateAPIView):
         }
 
         return success_response(data, status_code=status.HTTP_201_CREATED)
+
+
+class LoginView(SuccessResponseMixin, TokenObtainPairView):
+    pass
