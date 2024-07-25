@@ -33,3 +33,10 @@ class OrderSerializer(serializers.ModelSerializer):
             for item_data in items_data:
                 OrderItem.objects.create(order=order, **item_data)
             return order
+
+
+class OrderHistorySerializer(OrderSerializer):
+    items = OrderItemSerializer(many=True, read_only=True)
+
+    class Meta(OrderSerializer.Meta):
+        fields = ["id", "total_amount", "items", "created_at"]

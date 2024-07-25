@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from orders.models import Order
 from utils.mixins import SuccessResponseMixin
 
-from .serializers import OrderSerializer
+from .serializers import OrderHistorySerializer, OrderSerializer
 
 
 class OrderCreateView(SuccessResponseMixin, generics.CreateAPIView):
@@ -12,7 +12,7 @@ class OrderCreateView(SuccessResponseMixin, generics.CreateAPIView):
 
 
 class OrderHistoryView(SuccessResponseMixin, generics.ListAPIView):
-    serializer_class = OrderSerializer
+    serializer_class = OrderHistorySerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
