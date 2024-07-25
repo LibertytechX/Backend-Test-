@@ -85,7 +85,7 @@ class OrderViewSet(ModelViewSet):
         """
         Instantiates and returns the list of permissions that this view requires.
         """
-        if self.action in ['list','retrieve', 'update', 'partial_update', 'destroy']:
+        if self.action in ['retrieve', 'update', 'partial_update', 'destroy']:
             self.permission_classes = [IsOwner]
         else:
             self.permission_classes = [IsAuthenticated]
@@ -112,13 +112,7 @@ class OrderViewSet(ModelViewSet):
 
         return Response(response_data, status=status.HTTP_200_OK)
 
-    def retrieve(self, request, pk=None, *args, **kwargs):
-        instance = get_object_or_404(Order,pk=pk,user=request.user)
-        serializer = self.get_serializer(instance)
-        return Response(serializer.data)
     
-    def update(self, request, *args, **kwargs):
-        return super().update(request, *args, **kwargs)
 
        
     

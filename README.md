@@ -89,3 +89,8 @@ You will be provided with a virtual machine IP address hosted on Digital Ocean p
 - Also note that you can ignore the Docker and CI/CD instantiations on the application.
 
 ### Good luck, as we look forward to working with you at Liberty Assured in building amazing projects and relationships.
+
+
+##POSTMAN DOCUMENTATION
+
+**Here is the link to the postman collection : [click here](https://documenter.getpostman.com/view/21778720/2sA3kXFgfo)
