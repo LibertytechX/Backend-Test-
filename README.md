@@ -93,4 +93,4 @@ You will be provided with a virtual machine IP address hosted on Digital Ocean p
 
 ## POSTMAN DOCUMENTATION
 
-**Here is the link to the postman collection : [click here](https://documenter.getpostman.com/view/21778720/2sA3kXFgfo)
+**Here is the link to the postman collection : [click here](https://documenter.getpostman.com/view/21778720/2sA3kXFgfo)**
