@@ -101,6 +101,11 @@ class OrderViewSet(ModelViewSet):
 
         return Response(response_data, status=status.HTTP_200_OK)
 
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        instance = get_object_or_404(Order,pk=pk,user=request.user)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
+
        
     
    

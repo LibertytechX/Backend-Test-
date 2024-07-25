@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework import serializers
 from .models import *
 
@@ -15,13 +16,13 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    
+    id = serializers.IntegerField(required=False)
     class Meta:
         model = OrderedItem
-        fields = '__all__'
+        fields = ['id', 'product', 'quantity']
 
 class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True, )
+    items = OrderItemSerializer(many=True)
     user = serializers.PrimaryKeyRelatedField(
         default=serializers.CurrentUserDefault(), queryset = User
     )
@@ -43,3 +44,29 @@ class OrderSerializer(serializers.ModelSerializer):
             order.save()
 
         return order
+    
+    def update(self, instance,validated_data):
+        print(validated_data)
+        items = validated_data.pop("items")
+
+        instance.is_completed = validated_data.get("is_completed", instance.is_completed)
+        instance.save()
+        all_item_ids = [item.id for item in instance.items.all()]
+        print(all_item_ids)
+        for item in items:
+            print(item)
+            item_id = item.get("id",None)
+            if item_id and item_id in all_item_ids:
+                order_item = get_object_or_404(OrderedItem, id=item_id)
+                order_item.product = item.get("product", order_item.quantity)
+                order_item.quantity = item.get("quantity", order_item.quantity)
+
+                order_item.save()
+
+            else:
+                order_item = OrderedItem.objects.create(quantity=item['quantity'], product=item['product'])
+                instance.items.add(order_item)
+
+                instance.save()
+
+            return instance

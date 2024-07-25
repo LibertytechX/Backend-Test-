@@ -19,6 +19,7 @@ class TestViews(TestCase):
         self.ordereditem = OrderedItem.objects.create(product=self.item, quantity=5)
         self.order = Order.objects.create(user=self.test_user).items.add(self.ordereditem)
         
+    
         self.access_token = AccessToken.for_user(self.test_user)
     
     def test_get_inventory_item_unauthenticated(self):
@@ -105,12 +106,14 @@ class TestViews(TestCase):
     def test_get_orders_item_unauthenticated(self):
         url = reverse('orders-list')
         response = self.client.get(url)
+        
         self.assertEqual(response.status_code, HTTP_401_UNAUTHORIZED )
     
     def test_get_orders_authenticated(self):
         url = reverse('orders-list')
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.access_token}')
         response = self.client.get(url)
+        print(response.json())
         self.assertEqual(response.status_code, HTTP_200_OK )
     
     
