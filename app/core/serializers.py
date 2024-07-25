@@ -14,11 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = [
-            'id',
-            'name',
-            'email',
-            'password',
-            'password2'
+            "name",
+            "email",
+            "password",
+            "password2"
         ]
 
     def validate(self, attrs):
@@ -26,14 +25,14 @@ class UserSerializer(serializers.ModelSerializer):
         Validate the password and password2 (confirm password)
         fields to ensure they match.
         """
-        password = attrs.get('password')
-        password2 = attrs.get('password2')
+        password = attrs.get("password")
+        password2 = attrs.get("password2")
 
         if password != password2:
-            raise serializers.ValidationError('Passwords must match')
+            raise serializers.ValidationError("Passwords must match")
 
         return attrs
 
     def create(self, validated_data):
-        validated_data.pop('password2')
+        validated_data.pop("password2")
         return get_user_model().objects.create_user(**validated_data)
