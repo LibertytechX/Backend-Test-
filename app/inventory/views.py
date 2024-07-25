@@ -13,6 +13,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import *
 from .serializers import *
+from .custom_permissions import IsOwner
 
 class ProductViewSet(ModelViewSet):
     queryset = Products.objects.all()
@@ -79,6 +80,16 @@ class OrderViewSet(ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['is_completed', 'date']
 
+
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        if self.action in ['list','retrieve', 'update', 'partial_update', 'destroy']:
+            self.permission_classes = [IsOwner]
+        else:
+            self.permission_classes = [IsAuthenticated]
+        return super().get_permissions()
     
 
     def list(self, request, *args, **kwargs):
@@ -105,6 +116,9 @@ class OrderViewSet(ModelViewSet):
         instance = get_object_or_404(Order,pk=pk,user=request.user)
         serializer = self.get_serializer(instance)
         return Response(serializer.data)
+    
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
 
        
     
