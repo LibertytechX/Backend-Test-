@@ -1,9 +1,13 @@
 """Tests for main app are found here."""
-
+import requests
 from django.test import TestCase
 from django.contrib.auth import get_user_model
+from core.models import Category
+from core.views.order_view import OrderViewSet
+from rest_framework.test import APIClient
 
 
+        
 class ModelTests(TestCase):
     """Test model creations and management."""
 

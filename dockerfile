@@ -4,6 +4,8 @@ LABEL Inyang Kpongette
 ENV PYTHONUNBUFFERED 1
 
 COPY ./requirements.txt /requirements.txt
+COPY ./.env.dist /.env
+
 RUN apk add --no-cache --virtual .build-deps gcc musl-dev \
     && pip install --no-cache-dir -r /requirements.txt \
     && apk del .build-deps
@@ -11,6 +13,10 @@ RUN pip install flake8 flake8-docstrings restructuredtext-lint
 RUN mkdir /app
 WORKDIR /app
 COPY ./app /app
+
+COPY ./entrypoint.sh /
+
+ENTRYPOINT [ "sh", "/entrypoint.sh" ]
 
 RUN adduser -D user
 USER user
