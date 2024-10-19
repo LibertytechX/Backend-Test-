@@ -1,0 +1,11 @@
+venv
+core/migrations
+.env
+
+__pycache__
+app/__pycache__
+core/__pycache__
+./__pycache__
+./__pycache__
+utils/__pycache__
+core/api_schema/__pycache__
