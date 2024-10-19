@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecomm-liberty
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecomm
+  template:
+    metadata:
+      labels:
+        app: ecomm
+    spec:
+      containers:
+        - name: ecomm-liberty
+          image: ayobami6/ecom-liberty:latest
+          env:
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: ecomm-secret
+                key: DB_NAME
+          - name: DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: ecomm-secret
+                key: DB_HOST
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: ecomm-secret
+                key: DB_USER
+          - name:  DB_PASSWD
+            valueFrom:
+              secretKeyRef:
+                name: ecomm-secret
+                key:  DB_PASSWD
+          - name:  DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: ecomm-secret
+                key:  DB_PORT

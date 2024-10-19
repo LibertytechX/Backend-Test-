@@ -1,12 +1,15 @@
-version: "3"
+version: "3.8"
 
 services:
   app:
-    build: 
+    container_name: e_comm
+    build:
       context: .
+      dockerfile: deploy.dockerfile
     ports:
-      - "8000:8000"
+      - "80:80"
     volumes:
-      - ./app:/app
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      - .:/app
+    env_file:
+      - .env
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
